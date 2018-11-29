@@ -1,0 +1,71 @@
+
+.editEvents{
+  margin: auto auto auto 320px;
+  width: 700px;
+  border: 1px solid #eee;
+  //display: flex;
+ // flex-wrap: wrap;
+  position: relative;
+  //position: fixed;
+  left: 180px;
+  top: 650px;
+  text-align: center;
+  background-color: #f1f1f1;
+}
+.edEvSpan{
+  font-size: 30px;
+  font-weight: bold;
+  color: dimgray;
+}
+.btn-addnew{
+ float: right;
+ width: 80px;
+ height: 40px;
+ color: dimgrey;
+ background: transparent;
+ border: 2px solid #C2DBEB;
+ border-radius: 6px;
+ transition-duration: 0.4s;
+ cursor: pointer;
+ font-size: 25px;
+ font-weight: bold;
+ text-align: center;
+}
+.btn-addnew:hover{
+  background-color: #C2DBEB;
+  color: white;
+}
+.rowtime{
+  position: relative;
+}
+.table-bordered{
+ width: 700px;
+ border: 1px solid #eee;
+}
+
+.eventi:hover{
+  background-color: #C2DBEB;
+  color: white;
+}
+
+.table-bordered th{
+ border-bottom: 1px solid;
+ text-align: center;
+}
+
+.table-bordered td{
+ text-align: center;
+ border-bottom: 1px solid white;
+
+}
+
+.deleteEventBtn{
+  text-align: center;
+}
+.eventText{
+  width: 95%;
+  height: 30px;
+  border-radius: 6px;
+  border: none;
+}
+

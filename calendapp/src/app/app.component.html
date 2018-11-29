@@ -1,0 +1,42 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<nav id="nav-bar" class="nav">
+
+  <ul id="myDIV" class="header">
+      <li id="title">Calendar</li>
+      <li id="img"><img src="" class="round_icon"  alt=""></li>
+      <li id= "login">Login/Register</li>
+  </ul>
+</nav>
+
+<div class="center">
+      <div class="switchmonth">
+        <div (click)=previousMonth()> < </div>
+        <div>{{date.format('MMMM')}} {{date.format('YYYY')}}</div>
+        <div (click)=nextMonth()> > </div>
+      </div>
+
+     <div class="weeklyview">
+       <div>Sun</div>
+       <div>Mon</div>
+       <div>Tues</div>
+       <div>Wed</div>
+       <div>Thu</div>
+       <div>Fri</div>
+       <div>Sat</div>
+     </div>
+
+
+     <div class="flex-container">
+        <div *ngFor='let day of dayArray'>
+            <div (click)='event.selectDate(day)' [ngClass]="{'inactive':!day,'today':setToday(day),'selected':event.isSelected(day)}">{{day?.date()}}</div>
+        </div>
+     </div>
+
+
+
+</div>
+
+
+
+<app-eventmanage #event></app-eventmanage>
+<router-outlet></router-outlet>
