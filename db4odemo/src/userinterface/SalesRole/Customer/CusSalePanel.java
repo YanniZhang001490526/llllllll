@@ -5,16 +5,11 @@
  */
 package userinterface.SalesRole.Customer;
 
-import Business.Enterprise.CustomerEnterprise;
-import Business.Order.Order;
+import Business.Enterprise.Enterprise;
 import Business.Organization.SalesOrganization;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -27,81 +22,21 @@ public class CusSalePanel extends javax.swing.JPanel {
      */
     private JPanel userProcessContainer;
     private SalesOrganization organization;
-    private CustomerEnterprise enterprise;
+    private Enterprise enterprise;
     private UserAccount userAccount;
-    private List <Order> oFRes = new ArrayList();
-    private List <Order> inComp = new ArrayList();
-    
-    public CusSalePanel(JPanel userProcessContainer, UserAccount account, SalesOrganization organization, CustomerEnterprise enterprise) {
+    public CusSalePanel(JPanel userProcessContainer, UserAccount account, SalesOrganization organization, Enterprise enterprise) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.organization = organization;
         this.enterprise = enterprise;
         this.userAccount = account;
         valueLabel.setText(enterprise.getName());
-        
-        initList();
-        
-        populatProductTable();
         populateRequestTable();
-        
-    }
-    //
-   
-    
-    public void initList(){
-        for(int i=0;i<10;i++){
-            Order o = new Order();
-            o.setProduct("Product"+i);
-            o.setPrice(1000+i);
-            o.setQuantity(3+i);
-            
-            oFRes.add(o);
-        }
-
     }
     
-    public void populatProductTable(){
-     
-       DefaultTableModel model = (DefaultTableModel)ProductTable.getModel();
-        
-        model.setRowCount(0);
-       for(Order o : oFRes){
-//          System.out.println(model.getColumnCount());
-          Object[] row = new Object[model.getColumnCount()];
-          
-          row[0] = o;
-          
-          row[1] = o.getProduct();
-    
-          row[2] = o.getPrice();
-         
-          row[3] = o.getQuantity();
-          
-          model.addRow(row);
-       }
-    }
     public void populateRequestTable(){
         
-       DefaultTableModel model = (DefaultTableModel)RequestTable.getModel();
         
-        model.setRowCount(0);
-       
-       for(Order o : enterprise.getCol().getCustomerOrderList()){
-          Object[] row = new Object[model.getColumnCount()];
-          
-          row[0] = o;
-          
-          row[1] = o.getSender();
-    
-          row[2] = o.getStatus();
-         
-          row[3] = o.getMessage();
-          
-          model.addRow(row);
-       }
-       
-       
     }
 
     /**
@@ -117,13 +52,10 @@ public class CusSalePanel extends javax.swing.JPanel {
         valueLabel = new javax.swing.JLabel();
         refreshTestJButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        RequestTable = new javax.swing.JTable();
+        workRequestJTable = new javax.swing.JTable();
         requestTestJButton = new javax.swing.JButton();
         createBtn = new javax.swing.JButton();
         ViewBtn = new javax.swing.JButton();
-        publishbtn = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        ProductTable = new javax.swing.JTable();
 
         enterpriseLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         enterpriseLabel.setText("EnterPrise :");
@@ -137,7 +69,7 @@ public class CusSalePanel extends javax.swing.JPanel {
             }
         });
 
-        RequestTable.setModel(new javax.swing.table.DefaultTableModel(
+        workRequestJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -145,11 +77,11 @@ public class CusSalePanel extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "OrderId", "Receiver", "Status", "Reply"
+                "Message", "Receiver", "Status", "Result"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false
@@ -163,9 +95,9 @@ public class CusSalePanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(RequestTable);
+        jScrollPane1.setViewportView(workRequestJTable);
 
-        requestTestJButton.setText("Send Request");
+        requestTestJButton.setText("Request Test");
         requestTestJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 requestTestJButtonActionPerformed(evt);
@@ -186,45 +118,23 @@ public class CusSalePanel extends javax.swing.JPanel {
             }
         });
 
-        publishbtn.setText("Publish");
-        publishbtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                publishbtnActionPerformed(evt);
-            }
-        });
-
-        ProductTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "OrderId", "Productname", "Price", "Quantity"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, true
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane3.setViewportView(ProductTable);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(31, Short.MAX_VALUE)
-                .addComponent(createBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(ViewBtn)
-                .addGap(26, 26, 26)
-                .addComponent(requestTestJButton)
-                .addGap(27, 27, 27)
-                .addComponent(publishbtn)
-                .addGap(69, 69, 69))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(165, 165, 165))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(createBtn)
+                        .addGap(57, 57, 57)
+                        .addComponent(ViewBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(requestTestJButton)
+                        .addGap(86, 86, 86))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(enterpriseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -232,36 +142,25 @@ public class CusSalePanel extends javax.swing.JPanel {
                 .addComponent(valueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(refreshTestJButton)
-                .addGap(54, 54, 54))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3)
-                .addContainerGap())
+                .addGap(103, 103, 103))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(valueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(refreshTestJButton))
-                    .addComponent(enterpriseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
+                    .addComponent(valueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(refreshTestJButton)
+                        .addComponent(enterpriseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(requestTestJButton)
                     .addComponent(createBtn)
-                    .addComponent(ViewBtn)
-                    .addComponent(publishbtn))
-                .addGap(30, 30, 30))
+                    .addComponent(ViewBtn))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -273,86 +172,31 @@ public class CusSalePanel extends javax.swing.JPanel {
 
     private void requestTestJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestTestJButtonActionPerformed
 
-        int selectedRow = RequestTable.getSelectedRow();
-        if(selectedRow<0){
-            JOptionPane.showMessageDialog(this, "Please make selection");
-            return;
-        }
-        else{
-            
-            Order o = (Order)RequestTable.getValueAt(selectedRow,0);
-            o.setStatus("waitting");
-            o.setMessage("RequestToAccount");
-            populateRequestTable();
-        }
+//        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+//        userProcessContainer.add("RequestLabTestJPanel", new RequestLabTestJPanel(userProcessContainer, userAccount, enterprise));
+//        layout.next(userProcessContainer);
 
     }//GEN-LAST:event_requestTestJButtonActionPerformed
 
     private void createBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createBtnActionPerformed
         // TODO add your handling code here:
-         int selectedRow = ProductTable.getSelectedRow();
-         if(selectedRow<0){
-            JOptionPane.showMessageDialog(this, "Please make selection");
-            return;
-         }
-         else{
-            Order o = (Order)ProductTable.getValueAt(selectedRow,0);
-            CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-            userProcessContainer.add("CreateCusOrder", new CreateOrder(userProcessContainer, userAccount, enterprise, o));
-            layout.next(userProcessContainer);
-         
-         }
         
     }//GEN-LAST:event_createBtnActionPerformed
 
     private void ViewBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewBtnActionPerformed
         // TODO add your handling code here:
-        int selectedRow = RequestTable.getSelectedRow();
-        if(selectedRow<0){
-            JOptionPane.showMessageDialog(this, "Please make selection");
-            return;
-        }
-        else{
-            Order o = (Order)RequestTable.getValueAt(selectedRow,0);
-            CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-            userProcessContainer.add("CreateCusOrder", new viewOrder(userProcessContainer, userAccount, enterprise,inComp, o));
-            layout.next(userProcessContainer);
-        }
         
     }//GEN-LAST:event_ViewBtnActionPerformed
 
-    private void publishbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_publishbtnActionPerformed
-        // TODO add your handling code here:
-       int selectedRow = RequestTable.getSelectedRow();
-        if(selectedRow<0){
-            JOptionPane.showMessageDialog(this, "Please make selection");
-            return;
-        }
-        else{
-             Order o = (Order)RequestTable.getValueAt(selectedRow,0);
-             if(o.getStatus().equals("Approved")){
-                 oFRes.add(o);
-             }
-             else{
-                 JOptionPane.showMessageDialog(this, "Please Let Accountant make decision frist");
-                 return;
-             }
-                
-        }
-    }//GEN-LAST:event_publishbtnActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable ProductTable;
-    private javax.swing.JTable RequestTable;
     private javax.swing.JButton ViewBtn;
     private javax.swing.JButton createBtn;
     private javax.swing.JLabel enterpriseLabel;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JButton publishbtn;
     private javax.swing.JButton refreshTestJButton;
     private javax.swing.JButton requestTestJButton;
     private javax.swing.JLabel valueLabel;
+    private javax.swing.JTable workRequestJTable;
     // End of variables declaration//GEN-END:variables
 }

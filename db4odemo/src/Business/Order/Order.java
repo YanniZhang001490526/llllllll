@@ -25,6 +25,7 @@ public class Order {
     private Date requestDate;
     private Date resolveDate;
     
+    
     public Order(){
         this.OrderId = String.valueOf(count);
         count++;
@@ -39,6 +40,7 @@ public class Order {
         this.OrderId = OrderId;
     }
 
+    
     public String getProduct() {
         return product;
     }
@@ -110,8 +112,10 @@ public class Order {
     public void setResolveDate(Date resolveDate) {
         this.resolveDate = resolveDate;
     }
-    @Override
-    public String toString(){
-        return this.getOrderId();
+    
+        @Override
+    public String toString() {
+        return OrderId; //To change body of generated methods, choose Tools | Templates.
+      
     }
 }

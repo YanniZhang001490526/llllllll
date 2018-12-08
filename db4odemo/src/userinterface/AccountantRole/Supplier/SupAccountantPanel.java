@@ -6,9 +6,15 @@
 package userinterface.AccountantRole.Supplier;
 
 import Business.Enterprise.Enterprise;
+import Business.Order.Order;
 import Business.Organization.AccountantOrganization;
+import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
+import java.awt.CardLayout;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -29,9 +35,26 @@ public class SupAccountantPanel extends javax.swing.JPanel {
         this.organization = organization;
         this.enterprise = enterprise;
         this.userAccount = account;
+        valueLabel.setText(enterprise.getName());
+        
+        populateOrderTable();
     }
     
-
+    public void populateOrderTable(){
+        DefaultTableModel model = (DefaultTableModel) orderTbl.getModel();
+        model.setRowCount(0);
+        for(Order order : enterprise.getSupplierOrderList().getSupplierOrderList()){
+            Object[] row = new Object[7];
+            row[0] = order;//.getOrderId()
+            row[1] = order.getProduct();
+            row[2] = order.getPrice();
+            row[3] = order.getQuantity();
+            row[4] = order.getSender();
+            row[5] = order.getReceiver();
+            row[6] = order.getStatus();
+            model.addRow(row);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -41,19 +64,256 @@ public class SupAccountantPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        approveBtn = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        orderTbl = new javax.swing.JTable();
+        remarkTextField = new javax.swing.JTextField();
+        rejectBtn = new javax.swing.JButton();
+        refreshBtn = new javax.swing.JButton();
+        assBtn = new javax.swing.JButton();
+        analyzeBtn = new javax.swing.JButton();
+        valueLabel = new javax.swing.JLabel();
+        enterpriseLabel = new javax.swing.JLabel();
+
+        approveBtn.setText("Approve");
+        approveBtn.setEnabled(false);
+        approveBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                approveBtnActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Orders:");
+
+        jLabel3.setText("Remark：");
+
+        jLabel1.setFont(new java.awt.Font("Menlo", 1, 18)); // NOI18N
+        jLabel1.setText("Accountant Work Area");
+
+        orderTbl.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Order ID", "Product Name", "Price(/prod)", "Order Quantity", "Sender", "Reciever", "Status"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(orderTbl);
+
+        remarkTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                remarkTextFieldActionPerformed(evt);
+            }
+        });
+
+        rejectBtn.setText("Reject");
+        rejectBtn.setEnabled(false);
+        rejectBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rejectBtnActionPerformed(evt);
+            }
+        });
+
+        refreshBtn.setText("Refresh");
+        refreshBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshBtnActionPerformed(evt);
+            }
+        });
+
+        assBtn.setText("Assign to me");
+        assBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                assBtnActionPerformed(evt);
+            }
+        });
+
+        analyzeBtn.setText("Analyze");
+        analyzeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                analyzeBtnActionPerformed(evt);
+            }
+        });
+
+        valueLabel.setText("<value>");
+
+        enterpriseLabel.setFont(new java.awt.Font("Menlo", 1, 14)); // NOI18N
+        enterpriseLabel.setText("EnterPrise :");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(61, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(enterpriseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(valueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(138, 138, 138)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(refreshBtn))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(assBtn)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(6, 6, 6)
+                                    .addComponent(jLabel3)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(remarkTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(240, 240, 240)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(rejectBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(approveBtn)))
+                        .addComponent(analyzeBtn))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 543, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(59, 59, 59))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(valueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(enterpriseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(refreshBtn))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(assBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(remarkTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(approveBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rejectBtn)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(analyzeBtn)
+                .addContainerGap(49, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void remarkTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remarkTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_remarkTextFieldActionPerformed
+
+    private void rejectBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rejectBtnActionPerformed
+       int row = orderTbl.getSelectedRow();
+        if(row<0){
+            JOptionPane.showMessageDialog(null, "Please select a row from the table first", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+        Order o = (Order)orderTbl.getValueAt(row, 0);
+        o.setStatus("Rejected");
+        o.setMessage(remarkTextField.getText());
+    }//GEN-LAST:event_rejectBtnActionPerformed
+
+    private void approveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_approveBtnActionPerformed
+        int row = orderTbl.getSelectedRow();
+        if(row<0){
+            JOptionPane.showMessageDialog(null, "Please select a row from the table first", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+        Order o = (Order)orderTbl.getValueAt(row, 0);
+        o.setStatus("Approved");
+       
+        Organization org = null;
+        for (Organization organization : enterprise.getOrganizationDirectory().getOrganizationList()){
+            if (organization instanceof AccountantOrganization){
+                org = organization;
+                break;
+            }
+        }
+        if (org!=null){
+            ArrayList<Order> orgMasterLi=org.getWorkQueue().getMasterOrderList();
+            ArrayList<Order> userMasterLi=userAccount.getWorkQueue().getMasterOrderList();
+            orgMasterLi.add(o);
+            userMasterLi.add(o);
+            for(Order or: orgMasterLi){
+                if (!or.getStatus().equals("Approved")) {
+                    orgMasterLi.remove(or);
+                }
+            }
+            for(Order ord: userMasterLi){
+                if (!ord.getStatus().equals("Approved")) {
+                    orgMasterLi.remove(ord);
+                }
+            }
+//            org.getWorkQueue().getMasterOrderList().add(o);
+//            userAccount.getWorkQueue().getMasterOrderList().add(o);
+            
+        }        
+        //Test!!!!
+        for(Order or:userAccount.getWorkQueue().getMasterOrderList()){
+            System.out.println(o.getProduct());
+        }
+        
+        
+    }//GEN-LAST:event_approveBtnActionPerformed
+
+    private void assBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assBtnActionPerformed
+       int row = orderTbl.getSelectedRow();
+        if(row<0){
+            JOptionPane.showMessageDialog(null, "Please select a row from the table first", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+        Order o = (Order)orderTbl.getValueAt(row, 0);
+        o.setReceiver(userAccount);
+        
+        approveBtn.setEnabled(true);
+        rejectBtn.setEnabled(true);
+    }//GEN-LAST:event_assBtnActionPerformed
+
+    private void refreshBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshBtnActionPerformed
+       populateOrderTable();
+    }//GEN-LAST:event_refreshBtnActionPerformed
+
+    private void analyzeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analyzeBtnActionPerformed
+        AnalysisPanel ap =new AnalysisPanel(userProcessContainer, userAccount, organization, enterprise);
+        userProcessContainer.add("AddProductPanel", ap);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer); 
+
+
+    }//GEN-LAST:event_analyzeBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton analyzeBtn;
+    private javax.swing.JButton approveBtn;
+    private javax.swing.JButton assBtn;
+    private javax.swing.JLabel enterpriseLabel;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable orderTbl;
+    private javax.swing.JButton refreshBtn;
+    private javax.swing.JButton rejectBtn;
+    private javax.swing.JTextField remarkTextField;
+    private javax.swing.JLabel valueLabel;
     // End of variables declaration//GEN-END:variables
 }

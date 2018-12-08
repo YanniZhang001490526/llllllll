@@ -5,6 +5,7 @@
  */
 package Business.Enterprise;
 
+import Business.Product.ProductDir;
 import Business.Role.Role;
 import java.util.ArrayList;
 
@@ -14,8 +15,13 @@ import java.util.ArrayList;
  */
 public class SupplierEnterprise extends Enterprise {
     
+  //  private ProductDir productDir;
+
+
     public SupplierEnterprise(String name){
         super(name,Enterprise.EnterpriseType.Supplier);
+        //productDir= new ProductDir();
+        
     }
     @Override
     public ArrayList<Role> getSupportedRole() {

@@ -7,6 +7,7 @@ package Business.UserAccount;
 import Business.Employee.Employee;
 import Business.Role.Role;
 import Business.Order.MasterOrder;
+import Business.Product.ProductDir;
 
 /**
  *
@@ -19,10 +20,20 @@ public class UserAccount {
     private Employee employee;
     private Role role;
     private MasterOrder workQueue;
+    //private ProductDir productDir;
 
     public UserAccount() {
         workQueue = new MasterOrder();
+        //productDir = new ProductDir();
     }
+
+//    public ProductDir getProductDir() {
+//        return productDir;
+//    }
+//
+//    public void setProductDir(ProductDir productDir) {
+//        this.productDir = productDir;
+//    }
     
     
     

@@ -13,7 +13,6 @@ public class Employee {
     private String name;
     private int id;
     private static int count = 1;
-    private int Salary;
 
     public Employee() {
         id = count;
@@ -31,14 +30,6 @@ public class Employee {
     
     public String getName() {
         return name;
-    }
-
-    public int getSalary() {
-        return Salary;
-    }
-
-    public void setSalary(int Salary) {
-        this.Salary = Salary;
     }
 
     @Override

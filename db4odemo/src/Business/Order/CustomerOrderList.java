@@ -22,9 +22,5 @@ public class CustomerOrderList {
         return customerOrderList;
     }
 
-    public void setCustomerOrderList(ArrayList<Order> customerOrderList) {
-        this.customerOrderList = customerOrderList;
-    }
-    
    
 }

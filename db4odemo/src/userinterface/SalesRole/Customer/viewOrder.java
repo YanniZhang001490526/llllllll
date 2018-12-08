@@ -5,15 +5,6 @@
  */
 package userinterface.SalesRole.Customer;
 
-import Business.Enterprise.Enterprise;
-import Business.Order.Order;
-import Business.UserAccount.UserAccount;
-import java.awt.CardLayout;
-import java.awt.Component;
-import java.util.List;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-
 /**
  *
  * @author jononny
@@ -23,32 +14,8 @@ public class viewOrder extends javax.swing.JPanel {
     /**
      * Creates new form viewOrder
      */
-    JPanel userProcessContainer;
-    UserAccount userAccount;
-    Enterprise enterprise;
-    List<Order> oFRes;
-    List<Order> inComp;
-    Order o;
-    public viewOrder(JPanel userProcessContainer,UserAccount userAccount, Enterprise enterprise, List<Order> inComp, Order o) {
+    public viewOrder() {
         initComponents();
-        this.userProcessContainer = userProcessContainer;
-        this.userAccount = userAccount;
-        this.enterprise = enterprise;
-        this.inComp = inComp;
-        this.o = o;
-        jTextField1.setText(o.getOrderId());
-        jTextField2.setText(o.getProduct());
-        jTextField3.setText(o.getSender().toString());
-        jTextField4.setText(""+o.getQuantity());
-        jTextField5.setText(""+o.getPrice());
-        jTextField6.setText(o.getStatus());
-        jTextField1.setEnabled(false);
-        jTextField2.setEnabled(false);
-        jTextField3.setEnabled(false);
-        jTextField4.setEnabled(false);
-        jTextField5.setEnabled(false);
-        jTextField6.setEnabled(false);
-        savebtn.setEnabled(false);
     }
 
     /**
@@ -72,9 +39,9 @@ public class viewOrder extends javax.swing.JPanel {
         jTextField5 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jTextField6 = new javax.swing.JTextField();
-        updatebtn = new javax.swing.JButton();
-        savebtn = new javax.swing.JButton();
-        backbtn = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         jLabel1.setText("Orderid");
 
@@ -94,26 +61,11 @@ public class viewOrder extends javax.swing.JPanel {
 
         jLabel6.setText("Status");
 
-        updatebtn.setText("Update");
-        updatebtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updatebtnActionPerformed(evt);
-            }
-        });
+        jButton1.setText("Update");
 
-        savebtn.setText("Save");
-        savebtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                savebtnActionPerformed(evt);
-            }
-        });
+        jButton2.setText("Save");
 
-        backbtn.setText("Back");
-        backbtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backbtnActionPerformed(evt);
-            }
-        });
+        jButton3.setText("Back");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -121,11 +73,11 @@ public class viewOrder extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(35, Short.MAX_VALUE)
-                .addComponent(backbtn)
+                .addComponent(jButton3)
                 .addGap(18, 18, 18)
-                .addComponent(savebtn)
+                .addComponent(jButton2)
                 .addGap(63, 63, 63)
-                .addComponent(updatebtn)
+                .addComponent(jButton1)
                 .addGap(46, 46, 46))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -153,9 +105,9 @@ public class viewOrder extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 271, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(updatebtn)
-                    .addComponent(savebtn)
-                    .addComponent(backbtn)))
+                    .addComponent(jButton1)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(33, 33, 33)
@@ -190,65 +142,11 @@ public class viewOrder extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
 
-    private void backbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbtnActionPerformed
-        // TODO add your handling code here:
-        backAction();
-    }//GEN-LAST:event_backbtnActionPerformed
-    private void backAction(){
-        userProcessContainer.remove(this);
-        Component[] componentArray = userProcessContainer.getComponents();
-        Component component = componentArray[componentArray.length-1];
-        CusSalePanel csp = (CusSalePanel) component;
-        csp.populatProductTable();
-        csp.populateRequestTable();
-        CardLayout layout=(CardLayout)userProcessContainer.getLayout();
-        layout.previous(userProcessContainer);
-    }
-    
-    private void updatebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatebtnActionPerformed
-        // TODO add your handling code here:
-        
-//        jTextField1.setEnabled(true);
-        jTextField2.setEnabled(true);
-//        jTextField3.setEnabled(true);
-        jTextField4.setEnabled(true);
-        jTextField5.setEnabled(true);
-//        jTextField6.setEnabled(true);
-        savebtn.setEnabled(true);
-        
-        
-    }//GEN-LAST:event_updatebtnActionPerformed
-
-    private void savebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savebtnActionPerformed
-        // TODO add your handling code here:
-        if(jTextField1.getText().isEmpty()||jTextField2.getText().isEmpty()||jTextField3.getText().isEmpty()||jTextField4.getText().isEmpty()||jTextField5.getText().isEmpty()){
-                JOptionPane.showMessageDialog(this, "you need enter all the fields");
-                return;
-            }
-         try{
-                Integer.parseInt(jTextField4.getText());
-                Double.parseDouble(jTextField5.getText());
-            }catch(Exception e){
-                JOptionPane.showMessageDialog(null, "you need enter valid number");
-                return;
-            }
-        
-        o.setProduct(jTextField2.getText());
-        o.setQuantity(Integer.parseInt(jTextField4.getText()));
-        o.setPrice(Double.parseDouble(jTextField5.getText()));
-        o.setStatus("waitting");
-        jTextField1.setEnabled(false);
-        jTextField2.setEnabled(false);
-        jTextField3.setEnabled(false);
-        jTextField4.setEnabled(false);
-        jTextField5.setEnabled(false);
-        jTextField6.setEnabled(false);
-        savebtn.setEnabled(false);
-    }//GEN-LAST:event_savebtnActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton backbtn;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -261,7 +159,5 @@ public class viewOrder extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
-    private javax.swing.JButton savebtn;
-    private javax.swing.JButton updatebtn;
     // End of variables declaration//GEN-END:variables
 }

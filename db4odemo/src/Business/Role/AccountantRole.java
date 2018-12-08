@@ -5,7 +5,6 @@
 package Business.Role;
 
 import Business.EcoSystem;
-import Business.Enterprise.CustomerEnterprise;
 import Business.Enterprise.Enterprise;
 import Business.Organization.AccountantOrganization;
 import Business.Organization.Organization;
@@ -32,7 +31,7 @@ public class AccountantRole extends Role{
         }
 //        else if(enterprise.getEnterpriseType().getValue().equals("Customer")){
         else{
-            return new CusAccountantPanel(userProcessContainer, account, (AccountantOrganization)organization, (CustomerEnterprise)enterprise);
+            return new CusAccountantPanel(userProcessContainer, account, (AccountantOrganization)organization, enterprise);
         }
 //        return new AccountantWorkAreaPanel(userProcessContainer, account, (AccountantOrganization)organization, enterprise);
     }

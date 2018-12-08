@@ -21,16 +21,10 @@ public class EmployeeDirectory {
     public ArrayList<Employee> getEmployeeList() {
         return employeeList;
     }
+    
     public Employee createEmployee(String name){
-         Employee employee = new Employee();
-         employee.setName(name);
-         employeeList.add(employee);
-         return employee;
-    }
-    public Employee createEmployee(String name, int Salary){
         Employee employee = new Employee();
         employee.setName(name);
-        employee.setSalary(Salary);
         employeeList.add(employee);
         return employee;
     }

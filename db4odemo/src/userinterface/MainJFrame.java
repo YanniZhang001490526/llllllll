@@ -140,7 +140,7 @@ public class MainJFrame extends javax.swing.JFrame {
             for(Network network:system.getNetworkList()){
                 //Step 2.a: check against each enterprise
                 for(Enterprise enterprise:network.getEnterpriseDirectory().getEnterpriseList()){
-                       userAccount=enterprise.getUserAccountDirectory().authenticateUser(userName, password);
+                    userAccount=enterprise.getUserAccountDirectory().authenticateUser(userName, password);
                     if(userAccount==null){
                        //Step 3:check against each organization for each enterprise
                        for(Organization organization:enterprise.getOrganizationDirectory().getOrganizationList()){
@@ -159,8 +159,7 @@ public class MainJFrame extends javax.swing.JFrame {
                     }
                     if(inOrganization!=null){
                         break;
-                    } 
-                     
+                    }  
                 }
                 if(inEnterprise!=null){
                     break;
